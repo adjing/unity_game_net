@@ -12,6 +12,11 @@ public class NetConnSystem : MonoBehaviourPunCallbacks
         
     }
 
+    public void OnClick_CreateRoom(string room_guid)
+    {
+        PhotonNetwork.CreateRoom(room_guid);
+    }
+
     //public override void OnRoomListUpdate(List<RoomInfo> roomList)
     //{
     //    //base.OnRoomListUpdate(roomList);
