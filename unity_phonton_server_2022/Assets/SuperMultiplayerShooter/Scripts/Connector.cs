@@ -211,7 +211,13 @@ namespace Visyde
             bnp = Random.Range(0, 9999);
             Invoke("CreateABot", Random.Range(minBotCreationTime, maxBotCreationTime));
         }
+
         void CreateABot()
+        {
+
+        }
+
+        void CreateABot_old()
         {
             if (PhotonNetwork.InRoom)
             {
@@ -449,6 +455,12 @@ namespace Visyde
             // Events:
             onJoinRoom();
         }
+
+        public override void OnCreatedRoom()
+        {
+            HttpLog.Save("log", "OnCreatedRoom success 创建房间");
+        }
+
 
         /*
         public override void OnJoinedRoom1()
