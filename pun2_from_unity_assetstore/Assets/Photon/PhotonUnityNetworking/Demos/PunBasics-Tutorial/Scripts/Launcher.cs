@@ -65,6 +65,8 @@ namespace Photon.Pun.Demo.PunBasics
 		/// </summary>
 		void Awake()
 		{
+			PhotonNetwork.ConnectUsingSettings();
+
 			if (loaderAnime==null)
 			{
 				Debug.LogError("<Color=Red><b>Missing</b></Color> loaderAnime Reference.",this);
@@ -106,14 +108,15 @@ namespace Photon.Pun.Demo.PunBasics
 			// we check if we are connected or not, we join if we are , else we initiate the connection to the server.
 			if (PhotonNetwork.IsConnected)
 			{
-				LogFeedback("Joining Room...");
-				// #Critical we need at this point to attempt joining a Random Room. If it fails, we'll get notified in OnJoinRandomFailed() and we'll create one.
-				//PhotonNetwork.JoinRandomRoom();
-				RoomOptions options = new RoomOptions();
-				options.MaxPlayers = 2;
+                //LogFeedback("Joining Room...");
+                // #Critical we need at this point to attempt joining a Random Room. If it fails, we'll get notified in OnJoinRandomFailed() and we'll create one.
+                //PhotonNetwork.JoinRandomRoom();
+                RoomOptions options = new RoomOptions();
+                options.MaxPlayers = 2;
 
-				PhotonNetwork.JoinOrCreateRoom("1001", options, TypedLobby.Default);
-			}else{
+                PhotonNetwork.JoinOrCreateRoom("r1001", options, TypedLobby.Default);
+            }
+            else{
 
 				LogFeedback("Connecting...");
 				
