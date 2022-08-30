@@ -130,19 +130,20 @@ namespace Visyde
             punPlayersAll = PhotonNetwork.PlayerList;
 
             // Do we have bots in the game? Download bot stats if we have:
-            hasBots = PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("botNames");
-            if (hasBots)
-            {
-                // Download the stats:
-                bNames = (string[])PhotonNetwork.CurrentRoom.CustomProperties["botNames"];
-                bScores = (Vector3[])PhotonNetwork.CurrentRoom.CustomProperties["botScores"];
-                bChars = (int[])PhotonNetwork.CurrentRoom.CustomProperties["botCharacters"];
-                // And their "chosen" cosmetics:
-                bHats = (int[])PhotonNetwork.CurrentRoom.CustomProperties["botHats"];
+            //hasBots = PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("botNames");
+            //if (hasBots)
+            //{
+            //    // Download the stats:
+            //    bNames = (string[])PhotonNetwork.CurrentRoom.CustomProperties["botNames"];
+            //    bScores = (Vector3[])PhotonNetwork.CurrentRoom.CustomProperties["botScores"];
+            //    bChars = (int[])PhotonNetwork.CurrentRoom.CustomProperties["botCharacters"];
+            //    // And their "chosen" cosmetics:
+            //    bHats = (int[])PhotonNetwork.CurrentRoom.CustomProperties["botHats"];
 
-                // ...then generate the player instances:
-                bots = GenerateBotPlayerInstances();
-            }
+            //    // ...then generate the player instances:
+            //    bots = GenerateBotPlayerInstances();
+            //}
+
             // Generate human player instances:
             players = GeneratePlayerInstances(true);
 
