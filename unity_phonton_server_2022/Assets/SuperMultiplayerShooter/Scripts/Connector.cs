@@ -128,9 +128,16 @@ namespace Visyde
         // Matchmaking:
         public void FindMatch()
         {
-            ExitGames.Client.Photon.Hashtable h = new ExitGames.Client.Photon.Hashtable();
-            h.Add("isInMatchmaking", true);
-            PhotonNetwork.JoinRandomRoom(h, 0);
+            //ExitGames.Client.Photon.Hashtable h = new ExitGames.Client.Photon.Hashtable();
+            //h.Add("isInMatchmaking", true);
+            //PhotonNetwork.JoinRandomRoom(h, 0);
+
+            var room_guid = "1001";
+            //Hashtable room_parameter = new Hashtable();
+            //room_parameter.Add("maxPlayers", 2);
+            //room_parameter.Add("isOpen",true);
+
+            PhotonNetwork.JoinRoom(room_guid);
         }
         public void CancelMatchmaking()
         {

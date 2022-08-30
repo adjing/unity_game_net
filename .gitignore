@@ -5,3 +5,5 @@ unity_phonton_server_2022/UserSettings
 unity_phonton_server_2022/.vsconfig
 unity_phonton_server_2022/Temp
 *.csproj
+unity_phonton_server_2022/obj
+unity_phonton_server_2022/.vs
