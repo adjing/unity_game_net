@@ -129,6 +129,8 @@ namespace Visyde
             // Cache current player list:
             punPlayersAll = PhotonNetwork.PlayerList;
 
+            //PhotonNetwork.ConnectUsingSettings();
+
             // Do we have bots in the game? Download bot stats if we have:
             //hasBots = PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("botNames");
             //if (hasBots)

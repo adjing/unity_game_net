@@ -317,6 +317,7 @@ namespace Visyde
         // PHOTON:
         public override void OnConnectedToMaster()
         {
+            HttpLog.Save("log", "OnConnectedToMaster");
             if (PhotonNetwork.IsConnectedAndReady) PhotonNetwork.JoinLobby();
         }
         public override void OnDisconnected(DisconnectCause cause)
@@ -461,7 +462,12 @@ namespace Visyde
             HttpLog.Save("log", "OnCreatedRoom success 创建房间");
         }
 
+        public override void OnConnected()
+        {
+            HttpLog.Save("log", "OnConnected");
+        }
 
+      
         /*
         public override void OnJoinedRoom1()
         {
