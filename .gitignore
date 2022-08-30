@@ -7,3 +7,11 @@ unity_phonton_server_2022/Temp
 *.csproj
 unity_phonton_server_2022/obj
 unity_phonton_server_2022/.vs
+pun2_from_unity_assetstore/Library
+unity_phonton_server_2022/Packages/packages-lock.json
+pun2_from_unity_assetstore/UserSettings
+pun2_from_unity_assetstore/.vsconfig
+pun2_from_unity_assetstore/Temp
+pun2_from_unity_assetstore/obj
+pun2_from_unity_assetstore/Logs
+pun2_from_unity_assetstore/.vs

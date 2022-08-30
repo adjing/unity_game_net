@@ -108,7 +108,11 @@ namespace Photon.Pun.Demo.PunBasics
 			{
 				LogFeedback("Joining Room...");
 				// #Critical we need at this point to attempt joining a Random Room. If it fails, we'll get notified in OnJoinRandomFailed() and we'll create one.
-				PhotonNetwork.JoinRandomRoom();
+				//PhotonNetwork.JoinRandomRoom();
+				RoomOptions options = new RoomOptions();
+				options.MaxPlayers = 2;
+
+				PhotonNetwork.JoinOrCreateRoom("1001", options, TypedLobby.Default);
 			}else{
 
 				LogFeedback("Connecting...");
