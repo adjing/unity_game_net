@@ -126,19 +126,25 @@ namespace Visyde
         }
 
         // Matchmaking:
+        //public void FindMatch()
+        //{
+        //    //ExitGames.Client.Photon.Hashtable h = new ExitGames.Client.Photon.Hashtable();
+        //    //h.Add("isInMatchmaking", true);
+        //    //PhotonNetwork.JoinRandomRoom(h, 0);
+        //}
+
+        /// <summary>
+        /// 进入指定房间
+        /// </summary>
         public void FindMatch()
         {
-            //ExitGames.Client.Photon.Hashtable h = new ExitGames.Client.Photon.Hashtable();
-            //h.Add("isInMatchmaking", true);
-            //PhotonNetwork.JoinRandomRoom(h, 0);
-
             var room_guid = "1001";
-            //Hashtable room_parameter = new Hashtable();
-            //room_parameter.Add("maxPlayers", 2);
-            //room_parameter.Add("isOpen",true);
+            RoomOptions options = new RoomOptions();
+            options.MaxPlayers = 2;
 
-            PhotonNetwork.JoinRoom(room_guid);
+            PhotonNetwork.JoinOrCreateRoom(room_guid, options, TypedLobby.Default);
         }
+
         public void CancelMatchmaking()
         {
             PhotonNetwork.LeaveRoom();
@@ -151,6 +157,7 @@ namespace Visyde
             tryingToJoinCustom = true;
             PhotonNetwork.JoinRoom(room.Name);
         }
+
         public void CreateCustomGame(int selectedMap, int maxPlayers, bool allowBots)
         {
             if (PhotonNetwork.IsConnectedAndReady)
