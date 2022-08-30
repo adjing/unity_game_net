@@ -161,11 +161,11 @@ namespace Visyde
             controlsManager.mobileControls = useMobileControls;
 
             // Get the chosen map then enable it:
-            chosenMap = (int)PhotonNetwork.CurrentRoom.CustomProperties["map"];
-            for (int i = 0; i < maps.Length; i++)
-            {
-                maps[i].gameObject.SetActive(chosenMap == i);
-            }
+            //chosenMap = (int)PhotonNetwork.CurrentRoom.CustomProperties["map"];
+            //for (int i = 0; i < maps.Length; i++)
+            //{
+            //    maps[i].gameObject.SetActive(chosenMap == i);
+            //}
 
             // After loading the scene, we (the local player) are now ready for the game:
             Ready();
@@ -236,7 +236,7 @@ namespace Visyde
                     {
                         dead = false;
                         deathTime = 0;
-                        Spawn();
+                        //Spawn();
                     }
                 }
 
@@ -309,6 +309,7 @@ namespace Visyde
         /// </summary>
         public void Spawn()
         {
+            HttpLog.Save("log", "³öÉúÍæ¼ÒGameManager Spawn");
             Transform spawnPoint = maps[chosenMap].playerSpawnPoints[UnityEngine.Random.Range(0, maps[chosenMap].playerSpawnPoints.Count)];
             // There are 2 values in the player's instatiation data. The first one is reserved and only used if the player is a bot, while the 
             // second is for the cosmetics (in this case we only have 1 which is for the chosen hat, but you can add as many as your game needs):

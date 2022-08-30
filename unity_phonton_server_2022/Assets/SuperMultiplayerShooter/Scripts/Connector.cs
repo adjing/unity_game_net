@@ -315,6 +315,7 @@ namespace Visyde
         }
         public override void OnDisconnected(DisconnectCause cause)
         {
+            HttpLog.Save("error", "OnDisconnected");
             isLoadingGameScene = false;
 
             // Events:
@@ -404,11 +405,56 @@ namespace Visyde
         }
         public override void OnJoinRoomFailed(short returnCode, string message)
         {
+            HttpLog.Save("log", "OnJoinRoomFailed 进入房间失败");
+
             DataCarrier.message = message;
             if (!tryingToJoinCustom) PhotonNetwork.JoinRandomRoom();
         }
+
         public override void OnJoinedRoom()
         {
+            HttpLog.Save("log", "OnJoinedRoom success 进入房间");
+
+            //
+            // Setup scores (these are the actual player scores):
+            ExitGames.Client.Photon.Hashtable p = new ExitGames.Client.Photon.Hashtable();
+            p.Add("kills", 0);
+            p.Add("deaths", 0);
+            p.Add("otherScore", 0);
+            // Also set the chosen character:
+            p.Add("character", DataCarrier.chosenCharacter);
+            // ...and the cosmetics:
+            int[] cosmetics = new int[1];   // You can have as many items as you want, but in our case we only need 1 and that's for the hat
+            cosmetics[0] = DataCarrier.chosenHat;
+            //Sample usage:
+            //cosmetics[1] = DataCarrier.chosenBackpack;
+            //cosmetics[2] = DataCarrier.chosenShoes;
+            p.Add("cosmetics", cosmetics);
+
+            // Apply:
+            PhotonNetwork.LocalPlayer.SetCustomProperties(p);
+
+            //
+
+            // (MATCHMAKING ONLY) Start creating bots (if bots are allowed):
+            if (PhotonNetwork.IsMasterClient && createBots && !isInCustomGame)
+            {
+                // Clear the bots array first:
+                curBots = new Bot[0];
+                // then start creating new ones:
+                //关闭创建
+                Invoke("StartCreatingBots", startCreatingBotsAfter);
+            }
+
+            // Events:
+            onJoinRoom();
+        }
+
+        /*
+        public override void OnJoinedRoom1()
+        {
+            
+
             tryingToJoinCustom = false;
 
             // Know if the room we joined in is a custom game or not:
@@ -427,9 +473,9 @@ namespace Visyde
             // ...and the cosmetics:
             int[] cosmetics = new int[1];   // You can have as many items as you want, but in our case we only need 1 and that's for the hat
             cosmetics[0] = DataCarrier.chosenHat;
-            /* // Sample usage:
-            cosmetics[1] = DataCarrier.chosenBackpack;
-            cosmetics[2] = DataCarrier.chosenShoes; */
+            //Sample usage:
+            //cosmetics[1] = DataCarrier.chosenBackpack;
+            //cosmetics[2] = DataCarrier.chosenShoes;
             p.Add("cosmetics", cosmetics);
 
             // Apply:
@@ -444,12 +490,15 @@ namespace Visyde
                 // Clear the bots array first:
                 curBots = new Bot[0];
                 // then start creating new ones:
-                Invoke("StartCreatingBots", startCreatingBotsAfter);
+                //关闭创建
+                //Invoke("StartCreatingBots", startCreatingBotsAfter);
             }
 
             // Events:
             onJoinRoom();
         }
+        */
+
         public override void OnLeftRoom(){
             tryingToJoinCustom = false;
             isLoadingGameScene = false;

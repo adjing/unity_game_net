@@ -165,7 +165,7 @@ namespace Visyde
             // Update the player list when we join a room:
             RefreshPlayerList();
 
-            chosenMapText.text = Connector.instance.maps[(int)PhotonNetwork.CurrentRoom.CustomProperties["map"]];
+            //chosenMapText.text = Connector.instance.maps[(int)PhotonNetwork.CurrentRoom.CustomProperties["map"]];
             chosenPlayerNumberText.text = PhotonNetwork.CurrentRoom.MaxPlayers.ToString();
             if (PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("customAllowBots")) enableBotsText.text = (bool)PhotonNetwork.CurrentRoom.CustomProperties["customAllowBots"]? "Yes" : "No";
         }
