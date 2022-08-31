@@ -12,6 +12,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 using Photon.Realtime;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Photon.Pun.Demo.PunBasics
 {
@@ -22,7 +24,7 @@ namespace Photon.Pun.Demo.PunBasics
     /// </summary>
 	public class Launcher : MonoBehaviourPunCallbacks
     {
-
+		public string user_guid = "100";
 		#region Private Serializable Fields
 
 		[Tooltip("The Ui Panel to let the user enter name, connect and play")]
@@ -155,6 +157,7 @@ namespace Photon.Pun.Demo.PunBasics
         /// </summary>
         public override void OnConnectedToMaster()
 		{
+			HttpLog.Log("OnConnectedToMaster");
             // we don't want to do anything if we are not attempting to join a room. 
 			// this case where isConnecting is false is typically when you lost or quit the game, when this level is loaded, OnConnectedToMaster will be called, in that case
 			// we don't want to do anything.
@@ -162,9 +165,10 @@ namespace Photon.Pun.Demo.PunBasics
 			{
 				LogFeedback("OnConnectedToMaster: Next -> try to Join Random Room");
 				Debug.Log("PUN Basics Tutorial/Launcher: OnConnectedToMaster() was called by PUN. Now this client is connected and could join a room.\n Calling: PhotonNetwork.JoinRandomRoom(); Operation will fail if no room found");
-		
+
 				// #Critical: The first we try to do is to join a potential existing room. If there is, good, else, we'll be called back with OnJoinRandomFailed()
-				PhotonNetwork.JoinRandomRoom();
+				HttpLog.Log("OnConnectedToMaster 2 JoinRandomRoom");
+				//PhotonNetwork.JoinRandomRoom();
 			}
 		}
 
@@ -215,20 +219,55 @@ namespace Photon.Pun.Demo.PunBasics
 		{
 			LogFeedback("<Color=Green>OnJoinedRoom</Color> with "+PhotonNetwork.CurrentRoom.PlayerCount+" Player(s)");
 			Debug.Log("PUN Basics Tutorial/Launcher: OnJoinedRoom() called by PUN. Now this client is in a room.\nFrom here on, your game would be running.");
-		
+
+			HttpLog.Log(string.Format("room_guid={0}",PhotonNetwork.CurrentRoom.Name));
+			HttpLog.Log(string.Format("OnJoinedRoom PlayerCount={0}", PhotonNetwork.CurrentRoom.PlayerCount));
 			// #Critical: We only load if we are the first player, else we rely on  PhotonNetwork.AutomaticallySyncScene to sync our instance scene.
 			if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
 			{
 				Debug.Log("We load the 'Room for 1' ");
+				HttpLog.Log("We load the[Room for 1]");
 
 				// #Critical
 				// Load the Room Level. 
 				PhotonNetwork.LoadLevel("PunBasics-Room for 1");
-
 			}
 		}
 
+		public void OnClick_CreateRoom(string room_guid)
+		{
+			PhotonNetwork.CreateRoom(room_guid);
+		}
+
+		public override void OnPlayerEnteredRoom(Player newPlayer)
+		{
+			HttpLog.Log("OnPlayerEnteredRoom");
+		}
+
+		public override void OnRoomListUpdate(List<RoomInfo> roomList)
+		{
+			StringBuilder s = new StringBuilder();
+			if (roomList != null)
+			{
+				s.AppendLine("roomList is null");
+				HttpLog.Log(s.ToString());
+			}
+
+			if (roomList.Count == 0)
+			{
+				s.AppendLine("roomList is null");
+				HttpLog.Log(s.ToString());
+			}
+
+			for (int i = 0; i < roomList.Count; i++)
+			{
+				var item = roomList[i];
+				s.AppendLine(string.Format("room_guid={0}", item.Name));
+			}
+
+			HttpLog.Log(s.ToString());
+		}
 		#endregion
-		
+
 	}
 }
