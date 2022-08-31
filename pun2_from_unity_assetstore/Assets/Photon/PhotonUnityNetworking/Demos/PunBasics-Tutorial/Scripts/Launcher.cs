@@ -84,6 +84,7 @@ namespace Photon.Pun.Demo.PunBasics
 		#region Public Methods
 
 		/// <summary>
+		/// Play 按钮
 		/// Start the connection process. 
 		/// - If already connected, we attempt joining a random room
 		/// - if not yet connected, Connect this application instance to Photon Cloud Network
